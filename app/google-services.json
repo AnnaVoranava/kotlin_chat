@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "173847869319",
+    "project_id": "mychat-d43cd",
+    "storage_bucket": "mychat-d43cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173847869319:android:13e7ddfd4374d5876b8522",
+        "android_client_info": {
+          "package_name": "by.iba.voronova.mychat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg8dXqMu4vb4NBE5IPiLqF5DoeZlAxoBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

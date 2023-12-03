@@ -9,8 +9,8 @@ import by.iba.voronova.mychat.R
 import com.google.firebase.auth.FirebaseAuth
 
 
-
 class SplashActivity : AppCompatActivity() {
+
     lateinit var result: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +40,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun startChat(){
-        val startChat = Intent(applicationContext, ChatNewActivity::class.java)
+        val startChat = Intent(applicationContext, ChatActivity::class.java)
         startActivity(startChat)
         finish()
     }
-
 }
-

@@ -1,5 +1,6 @@
 package by.iba.voronova.mychat.activity
 
+
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -12,7 +13,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import by.iba.voronova.mychat.R
+import by.iba.voronova.mychat.data.User
 import by.iba.voronova.mychat.databinding.ActivityChatBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.database
+
+import timber.log.Timber
+import java.time.LocalDateTime
+import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
 
@@ -22,10 +31,13 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Companion.updateUserData()
+
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarChat.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.appBarChat.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -38,7 +50,7 @@ class ChatActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_contacts, R.id.nav_chats, R.id.sign_off
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -55,4 +67,18 @@ class ChatActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_chat)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    companion object {
+        private fun updateUserData() {
+            val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+            val dataBase = Firebase.database
+            val usersRef = dataBase.getReference(USERS_REF)
+            val currentUserRef = usersRef.child(currentUserId)
+            val user = User(currentUserId, "John", Date())
+            currentUserRef.setValue(user)
+            Timber.d(user.toString())
+        }
+    }
 }
+
+const val USERS_REF = "USERS"
